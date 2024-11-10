@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -23,13 +25,29 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $active = fake()->boolean;
+
         return [
             'name' => fake()->name(),
+            'job_title' => fake()->jobTitle,
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
+            'bio' => fake()->paragraph,
+            'email_verified_at' => $active ? now() : null,
             'password' => static::$password ??= Hash::make('password'),
+            'active' => $active,
             'remember_token' => Str::random(10),
         ];
+    }
+
+    /**
+     * Indicate that the model's email address should be verified.
+     */
+    public function verified(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'email_verified_at' => now(),
+            'active' => true,
+        ]);
     }
 
     /**
@@ -39,6 +57,7 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
+            'active' => false,
         ]);
     }
 }
