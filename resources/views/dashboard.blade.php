@@ -36,6 +36,11 @@
               </a>
             </li>
             <li>
+              <a href="{{ route('contextual-attributes') }}" class="font-medium text-indigo-600 hover:text-indigo-500">
+                {{ __('Contextual attributes') }}
+              </a>
+            </li>
+            <li>
               <a href="{{ route('deferred-functions') }}" class="font-medium text-indigo-600 hover:text-indigo-500">
                 {{ __('Deferred Functions (beta)') }}
               </a>

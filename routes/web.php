@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
-Route::view('/', 'welcome');
+Route::redirect('/', '/dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')
@@ -25,6 +26,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Volt::route('pipline', 'pipeline')
         ->name('pipeline');
+
+    Route::get('contextual-attributes', UserController::class)
+        ->name('contextual-attributes');
 
     Volt::route('deferred-functions', 'deferred-functions')
         ->name('deferred-functions');
